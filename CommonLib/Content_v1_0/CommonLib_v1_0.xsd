@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 sp1 (http://www.altova.com) by Kalle Launiala (Citrus Solutions Oy) -->
+<xs:schema xmlns="http://tempuri.org/CommonLib_v1_0.xsd" xmlns:mstns="http://tempuri.org/CommonLib_v1_0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://tempuri.org/CommonLib_v1_0.xsd" elementFormDefault="qualified" id="CommonLib_v1_0">
+	<xs:element name="CommonLibAbstraction">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="CommonLib">
+					<xs:annotation>
+						<xs:documentation>Example common lib distribution.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="namingConvention" use="required">
+							<xs:annotation>
+								<xs:documentation>Naming convention for method names in code.
+
+These are now as-example, as for the time of writing this example, there was no specific Objective-C convetntion available.</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="Undefined">
+										<xs:annotation>
+											<xs:documentation>Undefined. As-library-writer chose to.</xs:documentation>
+										</xs:annotation>
+									</xs:enumeration>
+									<xs:enumeration value="StartsWithLower">
+										<xs:annotation>
+											<xs:documentation>Starts with lower. All word separation starts with upper.</xs:documentation>
+										</xs:annotation>
+									</xs:enumeration>
+									<xs:enumeration value="StartsWithUpper">
+										<xs:annotation>
+											<xs:documentation>Starts with upper. All word separations starts with upper.
+</xs:documentation>
+										</xs:annotation>
+									</xs:enumeration>
+									<xs:enumeration value="AllLower">
+										<xs:annotation>
+											<xs:documentation>All lower case.</xs:documentation>
+										</xs:annotation>
+									</xs:enumeration>
+									<xs:enumeration value="AllUpper">
+										<xs:annotation>
+											<xs:documentation>All upper case.</xs:documentation>
+										</xs:annotation>
+									</xs:enumeration>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,76 @@
+﻿<#@ template debug="true" hostSpecific="true" language="C#v3.5" #>
+<#@ output extension=".m" #>
+<#@ Assembly Name="System.Core.dll" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+<#@ Assembly Name="System.Windows.Forms.dll" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Xml.Serialization" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#   
+	string templateDirectoryName = Path.GetDirectoryName(Host.TemplateFile);
+	string directoryName = templateDirectoryName + @"\Content_v1_0";
+	string[] xmlFileNames = Directory.GetFiles(directoryName, "*.xml");
+	
+	foreach(string xmlFileName in xmlFileNames)
+	{
+		CommonLib_v1_0.CommonLibAbstraction abstraction = LoadXml<CommonLib_v1_0.CommonLibAbstraction>(xmlFileName);
+		GenerateCommonLib(abstraction);
+	}
+#>
+<#@ include file="Common\CommonCodeblocks.ttinclude" #>
+<#@ include file="CommonLib_v1_0.ttinclude" #>
+<#+
+	string GetFormattedMethodName(string methodName, CommonLib_v1_0.CommonLibAbstractionCommonLibNamingConvention namingConvention)
+	{
+		switch(namingConvention) {
+			case CommonLib_v1_0.CommonLibAbstractionCommonLibNamingConvention.AllLower:
+				return methodName.ToLower();
+			case CommonLib_v1_0.CommonLibAbstractionCommonLibNamingConvention.AllUpper:
+				return methodName.ToUpper();
+			case CommonLib_v1_0.CommonLibAbstractionCommonLibNamingConvention.StartsWithLower:
+				return methodName.Substring(0, 1).ToLower() + methodName.Substring(1);
+			case CommonLib_v1_0.CommonLibAbstractionCommonLibNamingConvention.StartsWithUpper:
+				return methodName.Substring(0, 1).ToUpper() + methodName.Substring(1);
+			case CommonLib_v1_0.CommonLibAbstractionCommonLibNamingConvention.Undefined:
+			default:
+				return methodName;
+		}
+	}
+	
+	void GenerateCommonLib(CommonLib_v1_0.CommonLibAbstraction abstraction)
+	{
+		CommonLib_v1_0.CommonLibAbstractionCommonLibNamingConvention convention = abstraction.CommonLib.namingConvention;
+		#>
+- (void)<#= GetFormattedMethodName("copyBundleFileToDocumentsIfNotThereAlready", convention) #>:(NSString*) fileName
+{
+    //Get a fileManager object
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    //Get the path to the desired data file in /Documents
+    NSString *docsDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *docsFilePath = [docsDir stringByAppendingPathComponent:fileName];
+    NSString *docsFileURL = [NSURL URLWithString:docsFilePath];
+    
+    //See if file is there already; if not, copy from bundle
+    if (![[NSFileManager defaultManager] fileExistsAtPath: docsFilePath]) {
+        
+        //Get the file URL to the file in the app bundle
+        // TODO: Fix code here! NOTE! Fix it in the template .tt file, not in the ".m" file
+        NSString* baseName = @"TODOBaseNameHere";
+        NSString* extensionName = @"TODOExtNameHere";
+        NSURL *bundleURL = [[NSBundle mainBundle] URLForResource:baseName withExtension:extensionName];
+        
+        //Copy the file from the bundle to the /Documents directory
+        [manager copyItemAtURL:bundleURL toURL:docsFileURL error:NULL];
+    }
+}
+<#+
+	}
+#>
