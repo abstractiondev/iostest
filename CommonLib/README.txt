@@ -17,4 +17,4 @@ Usage:
 - How about some other calling convention, or error reporting or any other aspect-type behaviour?
 - Do open the CommonLibGenerator_v1_0.tt file; how difficult you think the modification would be, in case you needed to modify it?
 
-As a disclaimer; the toolset is fully intellisense supported currently in T4 (that is the .tt file) modifications in Visual Studio. MonoDevelop has this feature currently in requested list (not by me even) and it should appear there eventually.
+As a disclaimer; the toolset is fully intellisense supported currently in T4 (that is the .tt file) modifications in Visual Studio. MonoDevelop has this feature currently in requested list and it should appear there eventually.
