@@ -15,7 +15,7 @@
 <#@ import namespace="System.Collections.Generic" #> 
 <#   
 	string templateDirectoryName = Path.GetDirectoryName(Host.TemplateFile);
-	string directoryName = templateDirectoryName + @"\Content_v1_0";
+	string directoryName = templateDirectoryName + @"/Content_v1_0";
 	string[] xmlFileNames = Directory.GetFiles(directoryName, "*.xml");
 	
 	foreach(string xmlFileName in xmlFileNames)
@@ -24,7 +24,7 @@
 		GenerateCommonLib(abstraction);
 	}
 #>
-<#@ include file="Common\CommonCodeblocks.ttinclude" #>
+<#@ include file="Common/CommonCodeblocks.ttinclude" #>
 <#@ include file="CommonLib_v1_0.ttinclude" #>
 <#+
 	string GetFormattedMethodName(string methodName, CommonLib_v1_0.CommonLibAbstractionCommonLibNamingConvention namingConvention)

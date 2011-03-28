@@ -1,5 +1,5 @@
 ﻿ 
-- (void)CopyBundleFileToDocumentsIfNotThereAlready:(NSString*) fileName
+- (void)COPYBUNDLEFILETODOCUMENTSIFNOTTHEREALREADY:(NSString*) fileName
 {
     //Get a fileManager object
     NSFileManager *manager = [NSFileManager defaultManager];
